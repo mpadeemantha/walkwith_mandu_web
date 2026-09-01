@@ -55,20 +55,23 @@ const jsonLd = {
   "description": "Premium travel company in Sri Lanka offering customized tour packages for foreign travelers."
 };
 
+import FloatingContact from "./components/FloatingContact";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen flex flex-col font-sans antialiased`}>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen flex flex-col font-sans antialiased`} suppressHydrationWarning>
         {/* Inject JSON-LD */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         {children}
+        <FloatingContact />
       </body>
     </html>
   );
