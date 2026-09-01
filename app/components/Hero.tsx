@@ -67,6 +67,12 @@ export default function Hero() {
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-end justify-between gap-10">
               {/* Left Side: Text */}
               <div className="text-left max-w-2xl">
+                <div className="inline-flex items-center gap-2 bg-black/40 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-6 text-sm font-medium text-white shadow-lg">
+                  <svg className="w-4 h-4 text-[var(--color-brand-orange)]" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Sri Lanka Tourist Board Approved Tour Company
+                </div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4 tracking-tight drop-shadow-lg">
                   {slide.heading} <br />
                   <span className="text-[var(--color-brand-orange)] drop-shadow-md">{slide.highlight}</span>

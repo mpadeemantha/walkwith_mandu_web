@@ -36,6 +36,27 @@ export default function About() {
                 <p className="text-gray-500 ">Tailored to your needs.</p>
               </div>
             </div>
+
+            <div className="mt-10 flex flex-col sm:flex-row items-center gap-6 p-6 bg-white rounded-2xl border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-shadow hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
+              <div className="flex-shrink-0 bg-white p-3 rounded-xl flex items-center justify-center">
+                <img
+                  src="/SLTD logo.png"
+                  alt="Sri Lanka Tourist Board Logo"
+                  className="w-40 sm:w-44 h-auto object-contain"
+                />
+              </div>
+              <div className="text-center sm:text-left">
+                <div className="inline-flex items-center gap-2 mb-2">
+                  <svg className="w-5 h-5 text-[var(--color-brand-green)]" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  <h4 className="font-bold text-gray-900 text-lg">Tourist Board Approved</h4>
+                </div>
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  We are an officially certified tour operator by the Sri Lanka Tourism Development Authority, ensuring the highest standards of safety and quality.
+                </p>
+              </div>
+            </div>
           </ScrollReveal>
         </div>
       </div>
