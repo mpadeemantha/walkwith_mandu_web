@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-orange: #d97706;
+  --color-brand-orange: #ff7f17;
   /* Earthy orange from logo */
   --color-brand-green: #65a30d;
   /* Tropical green from frog */
@@ -95,6 +95,7 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }

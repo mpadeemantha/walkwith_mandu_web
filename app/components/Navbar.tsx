@@ -12,7 +12,7 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
+
       setIsScrolled(currentScrollY > 20);
 
       // Hide on scroll down, show on scroll up
@@ -22,10 +22,10 @@ export default function Navbar() {
       } else {
         setIsHidden(false);
       }
-      
+
       setLastScrollY(currentScrollY);
     };
-    
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY, isMobileMenuOpen]);
@@ -38,7 +38,7 @@ export default function Navbar() {
           {/* Logo area */}
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center">
-              <img src="/logowalk.png" alt="Walk With Mandu" className="h-20 w-auto object-contain drop-shadow-md" />
+              <img src="/logowalk.png" alt="Walk With Mandu" className="h-14 w-auto object-contain drop-shadow-md" />
             </Link>
           </div>
 
@@ -57,7 +57,7 @@ export default function Navbar() {
               Contact
             </Link>
             <Link href="/contact" className="bg-[var(--color-brand-orange)] text-white px-5 py-2 rounded-full font-medium hover:bg-orange-700 transition-colors shadow-md">
-              Book Now
+              Plan Your Trip
             </Link>
           </nav>
 
