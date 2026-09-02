@@ -1,370 +1,558 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import ScrollReveal from "../components/ScrollReveal";
 import {
-  Camera,
-  Play,
-  X,
-  MapPin,
-  Sparkles,
   Heart,
-  Share2,
-  ArrowRight,
   MessageCircle,
-  Video
+  Repeat,
+  Send,
+  Bookmark,
+  User,
+  ChevronRight,
+  ChevronLeft,
+  Volume2,
+  VolumeX,
+  Play,
+  MapPin,
+  Camera,
+  MessageSquare,
+  Sparkles,
+  ArrowRight
 } from "lucide-react";
 
-interface MediaItem {
+interface Post {
   id: number;
-  type: "image" | "video";
-  title: string;
-  location: string;
-  category: "Highlands & Rail" | "Coast & Surf" | "Wildlife Safari" | "Cultural Heritage" | "Village & Food";
-  thumbnail: string;
+  user: {
+    username: string;
+    avatar: string;
+    isVerified: boolean;
+    location: string;
+  };
+  images: string[];
+  type: "carousel" | "single" | "video";
   videoUrl?: string;
+  likes: number;
+  commentsCount: number;
+  sharesCount: number;
   caption: string;
-  featured?: boolean;
+  timeAgo: string;
+  taggedPerson?: string;
+  tourSlug?: string;
 }
 
-const mediaGallery: MediaItem[] = [
+const feedPosts: Post[] = [
   {
     id: 1,
-    type: "image",
-    title: "Sigiriya Lion Rock at First Light",
-    location: "Sigiriya, Cultural Triangle",
-    category: "Cultural Heritage",
-    thumbnail: "/bbg3.png",
-    caption: "Our private guests reaching the summit before the crowds arrive. 360-degree panorama of the ancient royal gardens.",
-    featured: true
+    user: {
+      username: "walkwithmandu",
+      avatar: "/walkmandu.png",
+      isVerified: true,
+      location: "Nine Arch Bridge, Demodara, Ella"
+    },
+    images: [
+      "/bbg2.png",
+      "/2.jpeg",
+      "/cooking.png"
+    ],
+    type: "carousel",
+    likes: 1420,
+    commentsCount: 38,
+    sharesCount: 15,
+    caption: "Some moments feel like they belong to a different time — the gentle mountain mist, the morning train horn echoing across the eucalyptus valley, and the world's most scenic railway. We reserve first-class observation seats so you never have to fight for tickets.",
+    timeAgo: "2 HOURS AGO",
+    taggedPerson: "Mandu Private Chauffeur",
+    tourSlug: "highlands-tea-trails"
   },
   {
     id: 2,
+    user: {
+      username: "walkwithmandu",
+      avatar: "/walkmandu.png",
+      isVerified: true,
+      location: "Yala National Park, Block 1"
+    },
+    images: [
+      "/4.jpeg"
+    ],
     type: "video",
-    title: "Blue Train Journey Over Nine Arch Bridge",
-    location: "Demodara, Ella Highlands",
-    category: "Highlands & Rail",
-    thumbnail: "/bbg2.png",
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-train-passing-through-a-green-landscape-42289-large.mp4",
-    caption: "The iconic blue locomotive gliding through the misty eucalyptus forests of Ella on our scenic hill country route.",
-    featured: true
+    videoUrl: "/video2.mp4",
+    likes: 3410,
+    commentsCount: 97,
+    sharesCount: 54,
+    caption: "Majestic predator strolling along the morning sand dunes 🐆 Sri Lanka has the highest leopard density on planet Earth. Our private safaris enter through quiet buffer tracks with expert naturalist trackers to avoid noisy jeep clusters.",
+    timeAgo: "2 DAYS AGO",
+    taggedPerson: "Yala Naturalist Tracker",
+    tourSlug: "wild-safari-expedition"
   },
   {
     id: 3,
-    type: "image",
-    title: "Sunset Surf Session at Ahangama Point",
-    location: "Ahangama, South Coast",
-    category: "Coast & Surf",
-    thumbnail: "/1.jpg",
-    caption: "Glassy shoulder-high peelers and golden hour light right outside our partner beachfront boutique lodge."
-  },
-  {
-    id: 4,
-    type: "video",
-    title: "Wild Leopard Stalking Through Yala",
-    location: "Yala National Park, Block 1",
-    category: "Wildlife Safari",
-    thumbnail: "/4.jpeg",
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-cheetah-walking-in-the-savannah-42797-large.mp4",
-    caption: "Captured by our guest David during our sunrise 4x4 safari with local naturalist tracker Chaminda."
-  },
-  {
-    id: 5,
-    type: "image",
-    title: "Traditional Clay-Pot Cooking Masterclass",
-    location: "Kandy Mountain Village",
-    category: "Village & Food",
-    thumbnail: "/cooking.png",
-    caption: "Learning the secrets of authentic coconut milk curries, toasted mustard seeds, and freshly harvested spices."
-  },
-  {
-    id: 6,
-    type: "image",
-    title: "Sacred Tooth Relic Golden Canopy",
-    location: "Kandy Sacred City",
-    category: "Cultural Heritage",
-    thumbnail: "https://srilankatravellife.com/wp-content/uploads/2025/10/The-Temple-of-the-Sacred-Tooth-Relic-Kandy.jpg",
-    caption: "The spiritual heart of Sri Lanka draped in jasmine flowers, lotus offerings, and resonant temple drumming."
-  },
-  {
-    id: 7,
-    type: "image",
-    title: "Village Life & Stilt Fishermen",
-    location: "Koggala & Kathaluwa",
-    category: "Coast & Surf",
-    thumbnail: "/villagevisit.png",
-    caption: "The age-old tradition of stilt fishing along the southern coral reefs at low tide."
+    user: {
+      username: "walkwithmandu",
+      avatar: "/walkmandu.png",
+      isVerified: true,
+      location: "Sigiriya Lion Rock Fortress"
+    },
+    images: [
+      "/bbg3.png",
+      "/3.jpeg"
+    ],
+    type: "carousel",
+    likes: 2185,
+    commentsCount: 62,
+    sharesCount: 29,
+    caption: "Standing 200 meters above the ancient jungle canopy at first light 🌅 Sigiriya was an architectural marvel in the 5th century, with landscaped royal water gardens, mirrored fresco corridors, and massive lion paws carved into the granite rock.",
+    timeAgo: "5 HOURS AGO",
+    taggedPerson: "Cultural Triangle Guide",
+    tourSlug: "cultural-heritage"
   },
   {
     id: 8,
+    user: {
+      username: "walkwithmandu",
+      avatar: "/walkmandu.png",
+      isVerified: true,
+      location: "Ahangama Point, Southern Province"
+    },
+    images: [
+      "/1.jpg",
+      "/villagevisit.png"
+    ],
+    type: "carousel",
+    likes: 1894,
+    commentsCount: 45,
+    sharesCount: 22,
+    caption: "Golden hour peelers and empty tropical peaks in our home village of Ahangama 🏄‍♀️ Clean south swell, warm turquoise water, and beachfront coconut smoothies. Private surf coaches and equipment included on our South Coast route.",
+    timeAgo: "1 DAY AGO",
+    taggedPerson: "Ahangama Surf Camp",
+    tourSlug: "south-coast-surf-chill"
+  },
+  {
+    id: 4,
+    user: {
+      username: "walkwithmandu",
+      avatar: "/walkmandu.png",
+      isVerified: true,
+      location: "Yala National Park, Block 1"
+    },
+    images: [
+      "/4.jpeg"
+    ],
     type: "video",
-    title: "Misty Sunrise Over Ella Rock",
-    location: "Ella Highlands",
-    category: "Highlands & Rail",
-    thumbnail: "/2.jpeg",
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-clouds-and-blue-sky-2408-large.mp4",
-    caption: "Panoramic drone sweep of the southern plains unfolding beneath Little Adam's Peak."
+    videoUrl: "/video1.mp4",
+    likes: 3410,
+    commentsCount: 97,
+    sharesCount: 54,
+    caption: "Majestic predator strolling along the morning sand dunes 🐆 Sri Lanka has the highest leopard density on planet Earth. Our private safaris enter through quiet buffer tracks with expert naturalist trackers to avoid noisy jeep clusters.",
+    timeAgo: "2 DAYS AGO",
+    taggedPerson: "Yala Naturalist Tracker",
+    tourSlug: "wild-safari-expedition"
+  },
+  {
+    id: 5,
+    user: {
+      username: "walkwithmandu",
+      avatar: "/walkmandu.png",
+      isVerified: true,
+      location: "Village Spice Garden, Kandy"
+    },
+    images: [
+      "/cooking.png",
+      "/villagevisit.png"
+    ],
+    type: "carousel",
+    likes: 1260,
+    commentsCount: 31,
+    sharesCount: 12,
+    caption: "Firewood hearths, hand-pressed coconut milk, and freshly ground cinnamon 🥥 An intimate village cooking masterclass with Amma in Kandy. The real flavor of Sri Lanka is found in village kitchens, not five-star hotel buffets.",
+    timeAgo: "4 DAYS AGO",
+    taggedPerson: "Village Culinary Host",
+    tourSlug: "complete-island-tour"
+  },
+  {
+    id: 6,
+    user: {
+      username: "walkwithmandu",
+      avatar: "/walkmandu.png",
+      isVerified: true,
+      location: "Mirissa Bay & Secret Beach"
+    },
+    images: [
+      "/3.jpeg"
+    ],
+    type: "single",
+    likes: 2470,
+    commentsCount: 53,
+    sharesCount: 18,
+    caption: "Tucked away behind a small jungle dirt path: Mirissa's secret cove. Clear calm water, towering coconut palms, and fresh king coconut water straight from the tree 🌴",
+    timeAgo: "6 DAYS AGO",
+    taggedPerson: "South Coast Chauffeur",
+    tourSlug: "honeymoon-escape"
   }
 ];
 
-const CATEGORIES = [
-  "All",
-  "Highlands & Rail",
-  "Coast & Surf",
-  "Wildlife Safari",
-  "Cultural Heritage",
-  "Village & Food"
-] as const;
+const STORIES = [
+  { id: 2, label: "Sigiriya", image: "/bbg3.png", hasUnread: true },
+  { id: 3, label: "Ella Train", image: "/bbg2.png", hasUnread: true },
+  { id: 4, label: "Yala Safari", image: "/4.jpeg", hasUnread: true },
+  { id: 5, label: "Surf Coast", image: "/1.jpg", hasUnread: true },
+  { id: 6, label: "Village Food", image: "/cooking.png", hasUnread: true },
+  { id: 7, label: "Reviews ⭐", image: "/villagevisit.png", hasUnread: true },
+];
 
 export default function GalleryPage() {
-  const [activeCategory, setActiveCategory] = useState<string>("All");
-  const [activeMedia, setActiveMedia] = useState<MediaItem | null>(null);
+  // State for liked posts: id -> boolean
+  const [liked, setLiked] = useState<Record<number, boolean>>({});
+  // State for bookmarked posts: id -> boolean
+  const [bookmarked, setBookmarked] = useState<Record<number, boolean>>({});
+  // Active carousel slide index: id -> index
+  const [activeSlide, setActiveSlide] = useState<Record<number, number>>({});
+  // Expanded caption toggle: id -> boolean
+  const [expandedCaption, setExpandedCaption] = useState<Record<number, boolean>>({});
+  // Tag bubble visible: id -> boolean
+  const [showTag, setShowTag] = useState<Record<number, boolean>>({});
+  // Video mute state: id -> boolean
+  const [isMuted, setIsMuted] = useState<Record<number, boolean>>({ 4: true });
 
-  const filteredMedia = useMemo(() => {
-    if (activeCategory === "All") return mediaGallery;
-    return mediaGallery.filter((item) => item.category === activeCategory);
-  }, [activeCategory]);
+  const toggleLike = (postId: number) => {
+    setLiked((prev) => ({ ...prev, [postId]: !prev[postId] }));
+  };
+
+  const toggleBookmark = (postId: number) => {
+    setBookmarked((prev) => ({ ...prev, [postId]: !prev[postId] }));
+  };
+
+  const nextSlide = (postId: number, total: number) => {
+    setActiveSlide((prev) => {
+      const current = prev[postId] || 0;
+      return { ...prev, [postId]: (current + 1) % total };
+    });
+  };
+
+  const prevSlide = (postId: number, total: number) => {
+    setActiveSlide((prev) => {
+      const current = prev[postId] || 0;
+      return { ...prev, [postId]: (current - 1 + total) % total };
+    });
+  };
+
+  const toggleTag = (postId: number) => {
+    setShowTag((prev) => ({ ...prev, [postId]: !prev[postId] }));
+  };
+
+  const toggleMute = (postId: number) => {
+    setIsMuted((prev) => ({ ...prev, [postId]: !prev[postId] }));
+  };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50/70 text-gray-800">
+    <div className="flex flex-col min-h-screen bg-black text-white selection:bg-rose-500 selection:text-white">
       <Navbar />
 
-      <main className="flex-grow">
-        
-        {/* ── CINEMATIC HERO SECTION ── */}
-        <section className="relative pt-32 pb-20 lg:pt-36 lg:pb-24 bg-gray-950 text-white overflow-hidden">
-          <div className="absolute inset-0 z-0">
-            <img
-              src="/bbg2.png"
-              alt="Sri Lanka scenic moments"
-              className="w-full h-full object-cover opacity-25 scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/80 to-gray-950/90" />
-          </div>
+      <main className="flex-grow pt-20 sm:pt-24 pb-16">
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <ScrollReveal animation="reveal-up">
-              
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-orange-400 text-xs font-bold uppercase tracking-widest mb-5">
-                <Camera className="w-3.5 h-3.5 text-[var(--color-brand-orange)]" />
-                <span>Captured On The Road</span>
-              </div>
-
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-5 leading-tight">
-                Real Island Moments & <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-brand-orange)] to-amber-400">
-                  Tour Video Highlights
+        {/* ── INSTAGRAM STORIES HIGHLIGHTS TRAY (WITHOUT YOUR STORY) ── */}
+        <div className="max-w-7xl mx-auto py-5 px-4 sm:px-6 lg:px-8 border-b border-neutral-900 overflow-x-auto no-scrollbar">
+          <div className="flex items-center justify-start sm:justify-center gap-4 sm:gap-7 min-w-max">
+            {STORIES.map((story) => (
+              <div
+                key={story.id}
+                className="flex flex-col items-center gap-1.5 cursor-pointer group"
+              >
+                <div className="p-[2.5px] rounded-full bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 transition-transform active:scale-95 group-hover:scale-105">
+                  <div className="p-0.5 bg-black rounded-full">
+                    <img
+                      src={story.image}
+                      alt={story.label}
+                      className="w-16 h-16 sm:w-18 sm:h-18 rounded-full object-cover"
+                    />
+                  </div>
+                </div>
+                <span className="text-[11px] text-neutral-300 font-medium tracking-tight group-hover:text-white">
+                  {story.label}
                 </span>
-              </h1>
-
-              <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed mb-6">
-                Unfiltered photography, scenic drone perspectives, and candid video reels shared by our travelers exploring Sri Lanka with Walk With Mandu.
-              </p>
-
-              <div className="inline-flex items-center gap-2 bg-white/5 border border-white/15 px-4 py-2 rounded-full text-xs font-semibold text-gray-300">
-                <svg className="w-4 h-4 text-pink-400" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                </svg>
-                <span>Tag <strong>#WalkWithMandu</strong> on Instagram to be featured</span>
               </div>
-
-            </ScrollReveal>
+            ))}
           </div>
-        </section>
+        </div>
 
-        {/* ── STICKY CATEGORY FILTER BAR ── */}
-        <section className="sticky top-[72px] z-30 bg-white/95 backdrop-blur-md border-b border-gray-200/80 shadow-sm py-4">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
-            
-            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar w-full pb-1 sm:pb-0">
-              {CATEGORIES.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
-                    activeCategory === cat
-                      ? "bg-[var(--color-brand-orange)] text-white shadow-sm"
-                      : "bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-900"
-                  }`}
+        {/* ── INSTAGRAM FEED POSTS CONTAINER (3 COLUMNS ON DESKTOP, 1 COLUMN ON MOBILE) ── */}
+        <div className="max-w-7xl mx-auto px-0 sm:px-4 lg:px-8 py-6 sm:py-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {feedPosts.map((post) => {
+              const isPostLiked = liked[post.id];
+              const isPostBookmarked = bookmarked[post.id];
+              const currentSlide = activeSlide[post.id] || 0;
+              const currentImg = post.images[currentSlide] || post.images[0];
+              const isCaptionExpanded = expandedCaption[post.id];
+              const isTagVisible = showTag[post.id];
+              const likesDisplay = isPostLiked ? post.likes + 1 : post.likes;
+
+              return (
+                <article
+                  key={post.id}
+                  className="bg-black sm:bg-neutral-950 sm:border sm:border-neutral-800/90 sm:rounded-3xl overflow-hidden pb-4 sm:pb-5 border-b border-neutral-900 sm:border-b-0 flex flex-col justify-between shadow-xl"
                 >
-                  {cat}
-                </button>
-              ))}
-            </div>
 
-            <span className="hidden sm:inline text-xs font-bold text-gray-400 flex-shrink-0">
-              {filteredMedia.length} Moments
-            </span>
+                  {/* ── Post Media: Full-Bleed 4:5 Edge-to-Edge Image / Video ── */}
+                  <div className="relative aspect-[4/5] bg-neutral-950 overflow-hidden select-none sm:rounded-t-3xl">
+                    {/* Top-left location badge */}
+                    <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md text-white text-[11px] font-semibold px-2.5 py-1 rounded-full flex items-center gap-1 z-20 border border-white/10 pointer-events-none">
+                      <MapPin className="w-3 h-3 text-[var(--color-brand-orange)]" />
+                      <span>{post.user.location}</span>
+                    </div>
+                    {post.type === "video" && post.videoUrl ? (
+                      <div className="w-full h-full relative">
+                        <video
+                          src={post.videoUrl}
+                          loop
+                          autoPlay
+                          playsInline
+                          muted={isMuted[post.id] !== false}
+                          className="w-full h-full object-cover"
+                        />
+                        {/* Mute / Unmute Button */}
+                        <button
+                          onClick={() => toggleMute(post.id)}
+                          className="absolute bottom-3 right-3 w-8 h-8 rounded-full bg-black/60 backdrop-blur-md flex items-center justify-center text-white z-20 focus:outline-none"
+                        >
+                          {isMuted[post.id] === false ? (
+                            <Volume2 className="w-4 h-4" />
+                          ) : (
+                            <VolumeX className="w-4 h-4" />
+                          )}
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="w-full h-full relative">
+                        <img
+                          src={currentImg}
+                          alt={post.user.location}
+                          className="w-full h-full object-cover"
+                        />
 
-          </div>
-        </section>
+                        {/* Carousel Arrow Right (Identical to attached image) */}
+                        {post.images.length > 1 && currentSlide < post.images.length - 1 && (
+                          <button
+                            onClick={() => nextSlide(post.id, post.images.length)}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-md text-white flex items-center justify-center transition-all z-20 shadow-md focus:outline-none"
+                            aria-label="Next slide"
+                          >
+                            <ChevronRight className="w-5 h-5" />
+                          </button>
+                        )}
 
-        {/* ── MASONRY MEDIA GRID ── */}
-        <section className="py-14 lg:py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-              {filteredMedia.map((item) => (
-                <div
-                  key={item.id}
-                  onClick={() => setActiveMedia(item)}
-                  className="group relative rounded-3xl overflow-hidden bg-gray-950 border border-gray-200/80 shadow-md hover:shadow-2xl transition-all duration-500 cursor-pointer aspect-[4/5] flex flex-col justify-end"
-                >
-                  {/* Media Thumbnail */}
-                  <img
-                    src={item.thumbnail}
-                    alt={item.title}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  
-                  {/* Multi-layer gradient scrim */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-950/95 via-gray-950/35 to-transparent" />
-
-                  {/* Top Badges */}
-                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
-                    <span className="bg-black/60 backdrop-blur-md text-white text-[10px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full border border-white/20">
-                      {item.category}
-                    </span>
-
-                    {item.type === "video" && (
-                      <span className="bg-brand-gradient text-white text-[11px] font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-md">
-                        <Play className="w-3 h-3 fill-white" />
-                        <span>Video Reel</span>
-                      </span>
+                        {/* Carousel Arrow Left */}
+                        {post.images.length > 1 && currentSlide > 0 && (
+                          <button
+                            onClick={() => prevSlide(post.id, post.images.length)}
+                            className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-md text-white flex items-center justify-center transition-all z-20 shadow-md focus:outline-none"
+                            aria-label="Previous slide"
+                          >
+                            <ChevronLeft className="w-5 h-5" />
+                          </button>
+                        )}
+                      </div>
                     )}
+
+                    {/* Person Tag Icon in Bottom Left (Identical to attached image) */}
+                    <div className="absolute bottom-3 left-3 z-20">
+                      <button
+                        onClick={() => toggleTag(post.id)}
+                        className="w-7 h-7 rounded-full bg-black/70 backdrop-blur-md flex items-center justify-center text-white shadow-md focus:outline-none active:scale-95 transition-transform"
+                        aria-label="Show tagged location"
+                      >
+                        <User className="w-3.5 h-3.5 fill-white" />
+                      </button>
+
+                      {/* Tag Bubble Popup */}
+                      {isTagVisible && (
+                        <div className="absolute bottom-9 left-0 bg-black/90 backdrop-blur-md text-white text-xs font-semibold px-3 py-1.5 rounded-lg border border-neutral-700 shadow-xl whitespace-nowrap animate-in fade-in zoom-in-95 duration-150 flex items-center gap-1.5">
+                          <MapPin className="w-3 h-3 text-[var(--color-brand-orange)]" />
+                          <span>{post.taggedPerson || "Sri Lanka Tour"}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Watermark Logo in Bottom Right (Identical to attached screenshot watermark) */}
+                    <div className="absolute bottom-3 right-3 text-[10px] uppercase font-bold tracking-widest text-white/40 pointer-events-none drop-shadow">
+                      Walk With Mandu
+                    </div>
                   </div>
 
-                  {/* Center Play Icon for Videos */}
-                  {item.type === "video" && (
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-                      <div className="w-14 h-14 rounded-full bg-white/90 text-gray-900 flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300">
-                        <Play className="w-6 h-6 fill-gray-900 ml-0.5" />
-                      </div>
+                  {/* ── Carousel Dots (Centered directly below image, matching screenshot) ── */}
+                  {post.images.length > 1 && (
+                    <div className="flex items-center justify-center gap-1.5 pt-2.5 pb-1">
+                      {post.images.map((_, dotIdx) => (
+                        <span
+                          key={dotIdx}
+                          className={`h-1.5 rounded-full transition-all duration-300 ${dotIdx === currentSlide
+                            ? "w-1.5 bg-[#0095F6]"
+                            : "w-1.5 bg-neutral-700"
+                            }`}
+                        />
+                      ))}
                     </div>
                   )}
 
-                  {/* Bottom Captions & Location */}
-                  <div className="relative z-10 p-6 text-white">
-                    <div className="flex items-center gap-1.5 text-xs text-orange-400 font-semibold mb-1">
-                      <MapPin className="w-3.5 h-3.5 text-[var(--color-brand-orange)]" />
-                      <span>{item.location}</span>
+                  {/* ── Action Icons Row (Matching exact layout: ♡ 367  💬 6  🔁 1  ➤     🔖) ── */}
+                  <div className="px-3.5 pt-2 pb-1 flex items-center justify-between">
+                    <div className="flex items-center gap-4 sm:gap-5 text-neutral-200">
+
+                      {/* 1. Like Heart + Count */}
+                      <button
+                        onClick={() => toggleLike(post.id)}
+                        className="flex items-center gap-1.5 focus:outline-none group active:scale-125 transition-transform"
+                        aria-label="Like post"
+                      >
+                        <Heart
+                          className={`w-6 h-6 transition-colors ${isPostLiked
+                            ? "fill-rose-500 text-rose-500 scale-110"
+                            : "text-white group-hover:text-neutral-300"
+                            }`}
+                        />
+                        <span className="text-xs font-bold text-white">
+                          {likesDisplay}
+                        </span>
+                      </button>
+
+                      {/* 2. Comment Bubble + Count */}
+                      <button
+                        className="flex items-center gap-1.5 focus:outline-none text-white hover:text-neutral-300 transition-colors"
+                        aria-label="Comments"
+                      >
+                        <MessageCircle className="w-6 h-6" />
+                        <span className="text-xs font-bold text-white">
+                          {post.commentsCount}
+                        </span>
+                      </button>
+
+                      {/* 3. Repost / Repeat + Count (Identical to screenshot) */}
+                      <button
+                        className="flex items-center gap-1.5 focus:outline-none text-white hover:text-neutral-300 transition-colors"
+                        aria-label="Repost"
+                      >
+                        <Repeat className="w-5 h-5" />
+                        <span className="text-xs font-bold text-white">
+                          {post.sharesCount}
+                        </span>
+                      </button>
+
+                      {/* 4. Send / WhatsApp Direct Share */}
+                      <a
+                        href={`https://wa.me/94776175241?text=${encodeURIComponent(
+                          `Hi Mandu! I loved your Instagram post from ${post.user.location}. Can you include this in our custom tour itinerary?`
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="focus:outline-none text-white hover:text-emerald-400 transition-colors"
+                        title="Inquire on WhatsApp"
+                      >
+                        <Send className="w-5 h-5 -rotate-12" />
+                      </a>
                     </div>
 
-                    <h3 className="text-lg sm:text-xl font-bold leading-snug mb-2 group-hover:text-[var(--color-brand-orange)] transition-colors">
-                      {item.title}
-                    </h3>
-
-                    <p className="text-xs sm:text-sm text-gray-300 line-clamp-2 leading-relaxed">
-                      {item.caption}
-                    </p>
+                    {/* 5. Bookmark / Save on far right */}
+                    <button
+                      onClick={() => toggleBookmark(post.id)}
+                      className="focus:outline-none text-white hover:text-neutral-300 transition-colors active:scale-125"
+                      aria-label="Save post"
+                    >
+                      <Bookmark
+                        className={`w-6 h-6 transition-colors ${isPostBookmarked
+                          ? "fill-white text-white"
+                          : "text-white"
+                          }`}
+                      />
+                    </button>
                   </div>
-                </div>
-              ))}
-            </div>
+
+                  {/* ── Caption with Username & Expandable "... more" ── */}
+                  <div className="px-3.5 pt-1 space-y-1">
+                    <p className="text-xs sm:text-sm text-neutral-100 leading-relaxed font-sans">
+                      <span className="font-bold text-white mr-1.5">
+                        {post.user.username}
+                      </span>
+                      <span>
+                        {isCaptionExpanded
+                          ? post.caption
+                          : post.caption.slice(0, 95)}
+                      </span>
+                      {!isCaptionExpanded && post.caption.length > 95 && (
+                        <button
+                          onClick={() =>
+                            setExpandedCaption((prev) => ({
+                              ...prev,
+                              [post.id]: true
+                            }))
+                          }
+                          className="text-neutral-400 hover:text-neutral-200 ml-1 font-medium text-xs focus:outline-none"
+                        >
+                          ... more
+                        </button>
+                      )}
+                    </p>
+
+                    {/* Time ago */}
+                    <p className="text-[10px] text-neutral-500 uppercase tracking-wider pt-0.5">
+                      {post.timeAgo}
+                    </p>
+
+                    {/* Direct WhatsApp Tour Booking Link (Integrated nicely below caption) */}
+                    <div className="pt-2 flex items-center justify-between">
+                      <a
+                        href={`https://wa.me/94776175241?text=${encodeURIComponent(
+                          `Hi Mandu! I saw your post of ${post.user.location} on Instagram. Please send details for a private tour here!`
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-[11px] font-bold text-emerald-400 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 px-3 py-1.5 rounded-full transition-colors"
+                      >
+                        <Send className="w-3 h-3 text-emerald-400 -rotate-12" />
+                        <span>Book this spot with Mandu</span>
+                      </a>
+
+                      {post.tourSlug && (
+                        <Link
+                          href={`/itineraries/${post.tourSlug}`}
+                          className="text-[11px] font-bold text-[var(--color-brand-orange)] hover:underline flex items-center gap-0.5"
+                        >
+                          <span>View Itinerary</span>
+                          <ChevronRight className="w-3 h-3" />
+                        </Link>
+                      )}
+                    </div>
+
+                  </div>
+
+                </article>
+              );
+            })}
           </div>
-        </section>
+        </div>
 
-        {/* ── LIGHTBOX / VIDEO POPUP MODAL ── */}
-        {activeMedia && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
-            <div className="bg-gray-950 text-white rounded-3xl max-w-3xl w-full overflow-hidden shadow-2xl relative border border-gray-800">
-              
-              {/* Close Button */}
-              <button
-                onClick={() => setActiveMedia(null)}
-                className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-colors focus:outline-none"
-                aria-label="Close media modal"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              {/* Media Container */}
-              <div className="w-full aspect-video bg-black relative flex items-center justify-center">
-                {activeMedia.type === "video" && activeMedia.videoUrl ? (
-                  <video
-                    src={activeMedia.videoUrl}
-                    controls
-                    autoPlay
-                    className="w-full h-full object-contain"
-                  />
-                ) : (
-                  <img
-                    src={activeMedia.thumbnail}
-                    alt={activeMedia.title}
-                    className="w-full h-full object-contain"
-                  />
-                )}
-              </div>
-
-              {/* Media Info Footer */}
-              <div className="p-6 sm:p-8 space-y-4">
-                <div className="flex items-center gap-2 text-xs text-orange-400 font-bold uppercase tracking-wider">
-                  <MapPin className="w-4 h-4" />
-                  <span>{activeMedia.location}</span>
-                  <span>•</span>
-                  <span>{activeMedia.category}</span>
-                </div>
-
-                <h2 className="text-xl sm:text-2xl font-bold text-white leading-snug">
-                  {activeMedia.title}
-                </h2>
-
-                <p className="text-sm text-gray-300 leading-relaxed">
-                  {activeMedia.caption}
-                </p>
-
-                {/* Modal CTA */}
-                <div className="pt-4 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-                  <p className="text-xs text-gray-400">
-                    Want to visit this exact location? We include it in custom private itineraries.
-                  </p>
-
-                  <a
-                    href={`https://wa.me/94776175241?text=${encodeURIComponent(
-                      `Hi Mandu! I loved the video/photo of "${activeMedia.title}" in ${activeMedia.location} on your website. Can we include this in our tour?`
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba59] text-white px-5 py-2.5 rounded-full text-xs font-bold shadow-md transition-all flex-shrink-0"
-                  >
-                    <MessageCircle className="w-4 h-4" />
-                    <span>Inquire on WhatsApp</span>
-                  </a>
-                </div>
-              </div>
-
-            </div>
+        {/* ── BOTTOM COMMUNITY CALLOUT ── */}
+        <div className="max-w-md mx-auto mt-8 p-6 bg-neutral-950 border border-neutral-800 rounded-3xl text-center">
+          <div className="w-10 h-10 mx-auto rounded-full bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex items-center justify-center text-white mb-3">
+            <Camera className="w-5 h-5" />
           </div>
-        )}
-
-        {/* ── BOTTOM CTA SECTION ── */}
-        <section className="py-20 bg-gray-950 text-white border-t border-gray-900">
-          <div className="max-w-4xl mx-auto px-4 text-center">
-            <span className="text-xs font-bold uppercase tracking-widest text-[var(--color-brand-orange)] block mb-3">
-              Your Turn in Paradise
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
-              Ready to Capture Your Own <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-brand-orange)] to-amber-400">
-                Sri Lankan Story?
-              </span>
-            </h2>
-            <p className="text-sm sm:text-base text-gray-400 max-w-xl mx-auto mb-8">
-              Speak directly with our local team in Ahangama. We’ll design your private chauffeured itinerary tailored to your exact rhythm.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 bg-brand-gradient text-white text-sm font-bold px-8 py-3.5 rounded-full shadow-lg"
-              >
-                <span>Plan Your Custom Journey</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
-        </section>
+          <h3 className="text-sm font-bold text-white mb-1">
+            Tag #WalkWithMandu on Instagram
+          </h3>
+          <p className="text-xs text-neutral-400 mb-4 leading-relaxed">
+            Traveling on one of our private tours? Tag @walkwithmandu to have your reels and photos featured in our live island feed!
+          </p>
+          <a
+            href="https://instagram.com/walkwithmandu"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 w-full py-2.5 bg-[#0095F6] hover:bg-[#1877F2] text-white rounded-xl text-xs font-bold transition-all shadow-md active:scale-95"
+          >
+            <span>Follow @walkwithmandu on Instagram</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </a>
+        </div>
 
       </main>
 
