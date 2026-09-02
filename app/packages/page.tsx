@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ScrollReveal from "../components/ScrollReveal";
@@ -16,6 +16,16 @@ const DURATIONS = ["All", "1–4 Days", "5–7 Days", "8+ Days"];
 export default function PackagesPage() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [activeDuration, setActiveDuration] = useState("All");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const cat = params.get("category");
+      const dur = params.get("duration");
+      if (cat && CATEGORIES.includes(cat)) setActiveCategory(cat);
+      if (dur && DURATIONS.includes(dur)) setActiveDuration(dur);
+    }
+  }, []);
 
   const filtered = useMemo(() => {
     return allPackages.filter((pkg) => {
