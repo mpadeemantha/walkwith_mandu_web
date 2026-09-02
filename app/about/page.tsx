@@ -44,7 +44,7 @@ export default function AboutPage() {
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               
               {/* Left Image Collage */}
-              <ScrollReveal animation="fade-in">
+              <ScrollReveal animation="reveal-fade">
                 <div className="relative h-[600px] rounded-3xl overflow-hidden shadow-2xl">
                   <img src="/3.jpeg" alt="Local culture" className="absolute inset-0 w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
@@ -66,7 +66,7 @@ export default function AboutPage() {
 
               {/* Right Content */}
               <div className="space-y-12">
-                <ScrollReveal animation="reveal-right">
+                <ScrollReveal animation="reveal-up">
                   <div>
                     <h2 className="text-3xl font-extrabold text-gray-900 mb-4 flex items-center gap-3">
                       <Leaf className="w-8 h-8 text-[var(--color-brand-orange)] flex-shrink-0" />
@@ -81,7 +81,7 @@ export default function AboutPage() {
                   </div>
                 </ScrollReveal>
 
-                <ScrollReveal animation="reveal-right" delay={200}>
+                <ScrollReveal animation="reveal-up" delay={200}>
                   <div>
                     <h2 className="text-3xl font-extrabold text-gray-900 mb-4 flex items-center gap-3">
                       <Map className="w-8 h-8 text-[var(--color-brand-orange)] flex-shrink-0" />
