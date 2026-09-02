@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -227,15 +227,67 @@ export default function GalleryPage() {
   const nextSlide = (postId: number, total: number) => {
     setActiveSlide((prev) => {
       const current = prev[postId] || 0;
-      return { ...prev, [postId]: (current + 1) % total };
+      return { ...prev, [postId]: Math.min(current + 1, total - 1) };
     });
   };
 
   const prevSlide = (postId: number, total: number) => {
     setActiveSlide((prev) => {
       const current = prev[postId] || 0;
-      return { ...prev, [postId]: (current - 1 + total) % total };
+      return { ...prev, [postId]: Math.max(current - 1, 0) };
     });
+  };
+
+  // Touch tracking for mobile swipe
+  const touchStartCoords = useRef<Record<number, { x: number; y: number }>>({});
+
+  const handleTouchStart = (postId: number, e: React.TouchEvent) => {
+    touchStartCoords.current[postId] = {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+    };
+  };
+
+  const handleTouchEnd = (postId: number, total: number, e: React.TouchEvent) => {
+    const start = touchStartCoords.current[postId];
+    if (!start) return;
+
+    const touch = e.changedTouches[0];
+    const diffX = start.x - touch.clientX;
+    const diffY = start.y - touch.clientY;
+
+    // Minimum swipe threshold (40px) and ensure horizontal movement exceeds vertical
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+      if (diffX > 0) {
+        nextSlide(postId, total);
+      } else {
+        prevSlide(postId, total);
+      }
+    }
+
+    delete touchStartCoords.current[postId];
+  };
+
+  // Mouse drag support for desktop
+  const isMouseDown = useRef<Record<number, boolean>>({});
+  const mouseStartX = useRef<Record<number, number>>({});
+
+  const handleMouseDown = (postId: number, e: React.MouseEvent) => {
+    isMouseDown.current[postId] = true;
+    mouseStartX.current[postId] = e.clientX;
+  };
+
+  const handleMouseUp = (postId: number, total: number, e: React.MouseEvent) => {
+    if (!isMouseDown.current[postId]) return;
+    isMouseDown.current[postId] = false;
+    const diffX = (mouseStartX.current[postId] || 0) - e.clientX;
+    if (Math.abs(diffX) > 40) {
+      if (diffX > 0) {
+        nextSlide(postId, total);
+      } else {
+        prevSlide(postId, total);
+      }
+    }
   };
 
   const toggleTag = (postId: number) => {
@@ -325,17 +377,37 @@ export default function GalleryPage() {
                         </button>
                       </div>
                     ) : (
-                      <div className="w-full h-full relative">
-                        <img
-                          src={currentImg}
-                          alt={post.user.location}
-                          className="w-full h-full object-cover"
-                        />
+                      <div
+                        className="w-full h-full relative overflow-hidden touch-pan-y cursor-grab active:cursor-grabbing"
+                        onTouchStart={(e) => handleTouchStart(post.id, e)}
+                        onTouchEnd={(e) => handleTouchEnd(post.id, post.images.length, e)}
+                        onMouseDown={(e) => handleMouseDown(post.id, e)}
+                        onMouseUp={(e) => handleMouseUp(post.id, post.images.length, e)}
+                      >
+                        {/* Horizontal sliding track for smooth swipe & transition */}
+                        <div
+                          className="flex h-full w-full transition-transform duration-300 ease-out"
+                          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+                        >
+                          {post.images.map((imgUrl, imgIdx) => (
+                            <div key={imgIdx} className="w-full h-full flex-shrink-0 relative">
+                              <img
+                                src={imgUrl}
+                                alt={`${post.user.location} photo ${imgIdx + 1}`}
+                                className="w-full h-full object-cover select-none pointer-events-none"
+                                draggable={false}
+                              />
+                            </div>
+                          ))}
+                        </div>
 
-                        {/* Carousel Arrow Right (Identical to attached image) */}
+                        {/* Carousel Arrow Right */}
                         {post.images.length > 1 && currentSlide < post.images.length - 1 && (
                           <button
-                            onClick={() => nextSlide(post.id, post.images.length)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              nextSlide(post.id, post.images.length);
+                            }}
                             className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-md text-white flex items-center justify-center transition-all z-20 shadow-md focus:outline-none"
                             aria-label="Next slide"
                           >
@@ -346,7 +418,10 @@ export default function GalleryPage() {
                         {/* Carousel Arrow Left */}
                         {post.images.length > 1 && currentSlide > 0 && (
                           <button
-                            onClick={() => prevSlide(post.id, post.images.length)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              prevSlide(post.id, post.images.length);
+                            }}
                             className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-md text-white flex items-center justify-center transition-all z-20 shadow-md focus:outline-none"
                             aria-label="Previous slide"
                           >
