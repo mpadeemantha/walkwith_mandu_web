@@ -1,129 +1,175 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import ModernCTA from "../components/ModernCTA";
 import ScrollReveal from "../components/ScrollReveal";
+import Reviews from "../components/Reviews";
+import { Compass, Heart, Leaf, Users, Map, Star } from "lucide-react";
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen">
       <Navbar />
 
       <main className="flex-grow pt-20">
-        {/* Hero Section */}
-        <section className="relative py-24 lg:py-32 bg-gray-900 overflow-hidden">
-          <div className="absolute inset-0">
-            <img
-              src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&q=80&w=2000"
-              alt="Sri Lanka landscape"
+        
+        {/* ── HERO SECTION ── */}
+        <section className="relative py-24 md:py-32 bg-gray-900 overflow-hidden">
+          <div className="absolute inset-0 z-0">
+            <img 
+              src="/bbg2.png" 
+              alt="Sri Lanka landscape" 
               className="w-full h-full object-cover opacity-40"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-gray-900/50"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-gray-900/80 via-gray-900/60 to-gray-900"></div>
           </div>
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <ScrollReveal>
-              <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-                Our <span className="text-[var(--color-brand-orange)]">Story</span>
+          
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <ScrollReveal animation="reveal-up">
+              <span className="text-[var(--color-brand-orange)] font-bold tracking-widest uppercase text-sm mb-4 block">
+                Discover Our Roots
+              </span>
+              <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6">
+                About <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-brand-orange)] to-amber-300">Walk With Mandu</span>
               </h1>
-              <p className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
-                Discover the heart of Sri Lanka through the eyes of locals who love it.
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                We are a passionate team of local travel experts dedicated to sharing the hidden wonders, authentic culture, and breathtaking landscapes of Sri Lanka with the world.
               </p>
             </ScrollReveal>
           </div>
         </section>
 
-        {/* Our Story / Mission */}
+        {/* ── OUR STORY & WHAT WE DO ── */}
         <section className="py-24 bg-white relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              <ScrollReveal animation="reveal-fade" className="flex justify-center">
-                <div className="relative w-full max-w-md">
-                  <img
-                    src="/walkmandu.png"
-                    alt="Walk With Mandu Logo"
-                    className="w-full h-auto object-contain drop-shadow-2xl"
-                  />
-                  {/* Decorative element */}
-                  <div className="absolute -z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[var(--color-brand-green)] opacity-5 rounded-full blur-3xl"></div>
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              
+              {/* Left Image Collage */}
+              <ScrollReveal animation="fade-in">
+                <div className="relative h-[600px] rounded-3xl overflow-hidden shadow-2xl">
+                  <img src="/3.jpeg" alt="Local culture" className="absolute inset-0 w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                  <div className="absolute bottom-8 left-8 right-8">
+                    <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6">
+                      <div className="flex items-center gap-4 text-white">
+                        <div className="bg-[var(--color-brand-orange)] p-3 rounded-full flex-shrink-0">
+                          <Compass className="w-6 h-6" />
+                        </div>
+                        <div>
+                          <p className="text-2xl font-bold">10+ Years</p>
+                          <p className="text-sm text-gray-200">of crafting unforgettable journeys</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </ScrollReveal>
 
-              <ScrollReveal animation="reveal-up">
-                <h2 className="text-sm font-bold text-[var(--color-brand-orange)] tracking-widest uppercase mb-2">
-                  Who We Are
-                </h2>
-                <h3 className="text-3xl md:text-5xl font-bold text-gray-900 mb-8">
-                  Authentic Connections in <span className="text-[var(--color-brand-green)]">Sri Lanka</span>
-                </h3>
-                <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
-                  <p>
-                    Based in the vibrant coastal town of Ahangama, Walk With Mandu was born out of a profound love for Sri Lanka's untold stories. We didn't just want to show travelers the sights; we wanted them to feel the pulse of our island.
-                  </p>
-                  <p>
-                    Our approach to travel is deeply rooted in sustainability and community. When you journey with us, you're not just a tourist—you're a guest in our home. We partner directly with local artisans, homestays, and expert guides to ensure your experience is genuine and your impact is positive.
-                  </p>
-                  <p>
-                    From the salty breeze of the southern surf breaks to the misty serenity of the central highlands, our bespoke itineraries are crafted to reflect your pace and passions. Let us take you off the beaten path and into the heart of Sri Lanka.
-                  </p>
-                </div>
-              </ScrollReveal>
-            </div>
-          </div>
-        </section>
-
-        {/* Core Values Grid */}
-        <section className="py-24 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ScrollReveal>
-              <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-                  Why Travel with <span className="text-[var(--color-brand-orange)]">Mandu?</span>
-                </h2>
-                <div className="w-24 h-1 bg-gradient-to-r from-[var(--color-brand-orange)] to-[var(--color-brand-green)] mx-auto mt-6 rounded-full"></div>
-              </div>
-            </ScrollReveal>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {[
-                {
-                  title: "100% Local Expertise",
-                  description: "Our guides are born and raised in Sri Lanka, offering insights you won't find in any guidebook.",
-                  color: "bg-[var(--color-brand-orange)]",
-                  delay: 0,
-                },
-                {
-                  title: "Sustainable Travel",
-                  description: "We prioritize eco-friendly practices and support local businesses to protect our island's future.",
-                  color: "bg-[var(--color-brand-green)]",
-                  delay: 100,
-                },
-                {
-                  title: "Bespoke Itineraries",
-                  description: "No cookie-cutter tours. Every journey is meticulously tailored to your unique interests and travel style.",
-                  color: "bg-[var(--color-brand-orange)]",
-                  delay: 200,
-                },
-                {
-                  title: "Meaningful Connections",
-                  description: "We facilitate real interactions with locals, allowing you to immerse yourself in our rich culture.",
-                  color: "bg-[var(--color-brand-green)]",
-                  delay: 300,
-                },
-              ].map((value, index) => (
-                <ScrollReveal key={index} delay={value.delay}>
-                  <div className="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-shadow duration-300 h-full border border-gray-100">
-                    <div className={`w-12 h-12 rounded-2xl ${value.color} opacity-20 mb-6`}></div>
-                    <h4 className="text-xl font-bold text-gray-900 mb-4">{value.title}</h4>
-                    <p className="text-gray-600 leading-relaxed">{value.description}</p>
+              {/* Right Content */}
+              <div className="space-y-12">
+                <ScrollReveal animation="reveal-right">
+                  <div>
+                    <h2 className="text-3xl font-extrabold text-gray-900 mb-4 flex items-center gap-3">
+                      <Leaf className="w-8 h-8 text-[var(--color-brand-orange)] flex-shrink-0" />
+                      Our Story
+                    </h2>
+                    <p className="text-gray-600 leading-relaxed text-lg">
+                      Walk With Mandu began with a simple belief: that travel should be more than just visiting famous landmarks. Founded by local enthusiasts, our journey started with a desire to show travelers the <strong>real Sri Lanka</strong>—the hidden waterfalls, the family-owned eateries, the untouched beaches, and the warmth of our communities.
+                    </p>
+                    <p className="text-gray-600 leading-relaxed text-lg mt-4">
+                      Today, we are proud to be a Tourist Board Approved Company, crafting bespoke, sustainable itineraries that leave a positive impact on both our guests and our beautiful island home.
+                    </p>
                   </div>
                 </ScrollReveal>
-              ))}
+
+                <ScrollReveal animation="reveal-right" delay={200}>
+                  <div>
+                    <h2 className="text-3xl font-extrabold text-gray-900 mb-4 flex items-center gap-3">
+                      <Map className="w-8 h-8 text-[var(--color-brand-orange)] flex-shrink-0" />
+                      What We Do
+                    </h2>
+                    <p className="text-gray-600 leading-relaxed text-lg mb-6">
+                      We specialize in creating 100% tailor-made, private tours across Sri Lanka. Whether you're seeking a thrilling wildlife safari, a serene wellness retreat, or a deep dive into ancient heritage, we handle every detail from arrival to departure.
+                    </p>
+                    
+                    <ul className="grid sm:grid-cols-2 gap-4">
+                      {[
+                        "Customized Itineraries",
+                        "Luxury & Boutique Stays",
+                        "Expert Local Guides",
+                        "Sustainable Tourism",
+                        "Seamless Transfers",
+                        "24/7 Concierge Support"
+                      ].map((item, i) => (
+                        <li key={i} className="flex items-center gap-3 text-gray-700 font-medium bg-gray-50 p-3 rounded-xl border border-gray-100">
+                          <div className="w-2 h-2 rounded-full bg-[var(--color-brand-orange)] flex-shrink-0" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </ScrollReveal>
+              </div>
+
             </div>
           </div>
         </section>
 
-        {/* CTA Section */}
-        <ModernCTA />
+        {/* ── VISION & MISSION ── */}
+        <section className="py-24 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid md:grid-cols-2 gap-8">
+              
+              <ScrollReveal animation="reveal-up">
+                <div className="bg-white p-12 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-shadow border border-gray-100 h-full flex flex-col items-center text-center group">
+                  <div className="w-20 h-20 bg-orange-50 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 flex-shrink-0">
+                    <Star className="w-10 h-10 text-[var(--color-brand-orange)]" />
+                  </div>
+                  <h3 className="text-3xl font-extrabold text-gray-900 mb-6">Our Vision</h3>
+                  <p className="text-gray-600 leading-relaxed text-lg">
+                    To be the most trusted and innovative travel partner in Sri Lanka, recognized globally for creating deeply immersive, life-changing journeys while fiercely protecting and promoting our island's natural and cultural heritage.
+                  </p>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal animation="reveal-up" delay={200}>
+                <div className="bg-gray-900 p-12 rounded-[2.5rem] shadow-xl hover:shadow-2xl transition-shadow border border-gray-800 h-full flex flex-col items-center text-center group">
+                  <div className="w-20 h-20 bg-gray-800 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 border border-gray-700 flex-shrink-0">
+                    <Heart className="w-10 h-10 text-[var(--color-brand-orange)]" />
+                  </div>
+                  <h3 className="text-3xl font-extrabold text-white mb-6">Our Mission</h3>
+                  <p className="text-gray-400 leading-relaxed text-lg">
+                    To design personalized travel experiences that connect travelers with the soul of Sri Lanka. We strive to empower local communities, practice sustainable tourism, and ensure every guest leaves as a lifelong friend of Mandu.
+                  </p>
+                </div>
+              </ScrollReveal>
+
+            </div>
+          </div>
+        </section>
+
+        {/* ── REVIEWS SECTION ── */}
+        <div className="bg-white">
+          <Reviews />
+        </div>
+
+        {/* ── CTA ── */}
+        <section className="py-24 bg-[var(--color-brand-green)]">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <ScrollReveal animation="reveal-up">
+              <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6">
+                Ready to travel with us?
+              </h2>
+              <p className="text-xl text-green-100 mb-10">
+                Let our experts craft the perfect Sri Lankan adventure just for you.
+              </p>
+              <a href="/#contact" className="inline-flex items-center justify-center gap-2 bg-brand-gradient text-white font-bold px-10 py-4 rounded-full text-lg shadow-xl hover:shadow-2xl transition-all group">
+                Plan Your Trip Now
+                <svg className="w-5 h-5 rotate-90 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+              </a>
+            </ScrollReveal>
+          </div>
+        </section>
+
       </main>
 
       <Footer />

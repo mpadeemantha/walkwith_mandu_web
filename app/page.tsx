@@ -10,6 +10,7 @@ import Packages from "./components/Packages";
 import NewsEvents from "./components/NewsEvents";
 import ModernCTA from "./components/ModernCTA";
 import ContactCTA from "./components/ContactCTA";
+import FAQ from "./components/FAQ";
 
 export default function Home() {
     return (
@@ -24,9 +25,7 @@ export default function Home() {
                 <About />
                 <ModernCTA />
                 <Destinations />
-                <NewsEvents />
-
-
+                <FAQ />
             </main>
 
             <Footer />

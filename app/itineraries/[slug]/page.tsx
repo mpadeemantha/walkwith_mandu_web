@@ -306,9 +306,10 @@ export default function PackageDetailsPage({ params }: { params: { slug: string 
                   <div className="px-7 py-6 space-y-3">
                     <a
                       href="/#contact"
-                      className="w-full block text-center bg-[var(--color-brand-orange)] hover:bg-amber-700 text-white font-bold py-4 rounded-2xl transition-all shadow-md shadow-orange-100 text-base"
+                      className="w-full flex items-center justify-center gap-2 bg-brand-gradient text-white font-bold py-4 rounded-2xl shadow-md text-base group"
                     >
                       Inquire About This Tour
+                      <svg className="w-5 h-5 rotate-90 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
                     </a>
                     <a
                       href="/#contact"
@@ -352,8 +353,9 @@ export default function PackageDetailsPage({ params }: { params: { slug: string 
                 Every itinerary is fully tailored to you — your pace, your interests, your budget.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="/#contact" className="bg-[var(--color-brand-orange)] hover:bg-amber-700 text-white font-bold px-10 py-4 rounded-full text-lg transition-all shadow-xl shadow-orange-900/30">
+                <a href="/#contact" className="bg-brand-gradient text-white font-bold px-10 py-4 rounded-full text-lg shadow-xl flex items-center justify-center gap-2 group">
                   Book This Tour
+                  <svg className="w-5 h-5 rotate-90 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
                 </a>
                 <a href="/packages" className="bg-white/10 hover:bg-white/20 border-2 border-white/30 text-white font-bold px-10 py-4 rounded-full text-lg transition-all">
                   View All Packages

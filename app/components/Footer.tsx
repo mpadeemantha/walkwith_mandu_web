@@ -6,18 +6,18 @@ export default function Footer() {
     <footer className="bg-gray-900 text-gray-300">
 
       {/* ── PLAN YOUR TRIP BANNER ── */}
-      <div className="bg-[var(--color-brand-orange)]">
+      <div className="bg-gray-950 border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
             <h2 className="text-2xl font-extrabold text-white">Ready to explore Sri Lanka?</h2>
-            <p className="text-orange-100 text-sm mt-1">Let us craft your perfect journey from start to finish.</p>
+            <p className="text-gray-400 text-sm mt-1">Let us craft your perfect journey from start to finish.</p>
           </div>
           <a
             href="/#contact"
-            className="flex-shrink-0 flex items-center gap-2 bg-white text-[var(--color-brand-orange)] font-bold px-8 py-4 rounded-full hover:bg-orange-50 transition-all shadow-lg shadow-orange-900/30 text-base group"
+            className="flex-shrink-0 flex items-center gap-2 bg-brand-gradient text-white font-bold px-8 py-4 rounded-full shadow-lg text-base group"
           >
             Plan Your Trip
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <svg className="w-5 h-5 rotate-90 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
           </a>
         </div>
       </div>

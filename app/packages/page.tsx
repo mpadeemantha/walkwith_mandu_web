@@ -260,10 +260,10 @@ export default function PackagesPage() {
                         </div>
                         <a
                           href={`/itineraries/${pkg.slug}`}
-                          className="flex items-center gap-1.5 bg-[var(--color-brand-orange)] hover:bg-amber-700 text-white text-sm font-bold px-5 py-3 rounded-2xl transition-all shadow-md shadow-orange-100 group/btn"
+                          className="flex items-center justify-center gap-2 bg-brand-gradient text-white text-sm font-bold px-5 py-3 rounded-2xl shadow-md group"
                         >
                           View Details
-                          <ChevronRight className="w-4 h-4 group-hover/btn:translate-x-0.5 transition-transform" />
+                          <svg className="w-4 h-4 rotate-90 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
                         </a>
                       </div>
                     </div>
@@ -286,9 +286,10 @@ export default function PackagesPage() {
               </p>
               <a
                 href="/#contact"
-                className="inline-block bg-[var(--color-brand-orange)] hover:bg-amber-700 text-white font-bold px-10 py-4 rounded-full text-base transition-all shadow-xl shadow-orange-900/30"
+                className="inline-flex items-center justify-center gap-2 bg-brand-gradient text-white font-bold px-10 py-4 rounded-full text-base shadow-xl group"
               >
                 Request a Custom Tour
+                <svg className="w-5 h-5 rotate-90 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
               </a>
             </div>
           </ScrollReveal>
