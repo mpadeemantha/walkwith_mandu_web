@@ -20,11 +20,9 @@ export default function Home() {
             <main className="flex-grow">
                 <Hero />
                 <Experiences />
-
                 <Reviews />
                 <About />
                 <ModernCTA />
-                <Destinations />
                 <FAQ />
             </main>
 
