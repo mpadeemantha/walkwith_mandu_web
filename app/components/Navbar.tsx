@@ -11,7 +11,10 @@ import {
   Mail,
   Home as HomeIcon,
   ShieldCheck,
-  Star
+  Star,
+  Camera,
+  HelpCircle,
+  Newspaper
 } from "lucide-react";
 
 export default function Navbar() {
@@ -55,8 +58,11 @@ export default function Navbar() {
   const navLinks = [
     { label: "Home", href: "/", number: "01", icon: HomeIcon, desc: "Island highlights & journeys" },
     { label: "Tour Packages", href: "/packages", number: "02", icon: Map, desc: "Explore 6 tailor-made routes" },
-    { label: "About Us", href: "/about", number: "03", icon: Compass, desc: "Our story, vision & reviews" },
-    { label: "Contact", href: "/contact", number: "04", icon: Mail, desc: "Talk to our local specialists" },
+    { label: "Tour Media & Reels", href: "/gallery", number: "03", icon: Camera, desc: "Photos & video highlights" },
+    { label: "About Us", href: "/about", number: "04", icon: Compass, desc: "Our story, vision & reviews" },
+    { label: "News & Events", href: "/news", number: "05", icon: Newspaper, desc: "Festivals & island guides" },
+    { label: "FAQs", href: "/faq", number: "06", icon: HelpCircle, desc: "Visa, weather & travel advice" },
+    { label: "Contact", href: "/contact", number: "07", icon: Mail, desc: "Talk to our local specialists" },
   ];
 
   return (
@@ -82,26 +88,50 @@ export default function Navbar() {
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex space-x-8 items-center">
-              <Link
-                href="/about"
-                className={`font-medium transition-colors hover:text-[var(--color-brand-orange)] ${
-                  isScrolled ? "text-gray-200" : "text-white drop-shadow-md"
-                }`}
-              >
-                About
-              </Link>
+            <nav className="hidden lg:flex space-x-7 items-center">
               <Link
                 href="/packages"
-                className={`font-medium transition-colors hover:text-[var(--color-brand-orange)] ${
+                className={`text-sm font-medium transition-colors hover:text-[var(--color-brand-orange)] ${
                   isScrolled ? "text-gray-200" : "text-white drop-shadow-md"
                 }`}
               >
                 Packages
               </Link>
               <Link
+                href="/gallery"
+                className={`text-sm font-medium transition-colors hover:text-[var(--color-brand-orange)] ${
+                  isScrolled ? "text-gray-200" : "text-white drop-shadow-md"
+                }`}
+              >
+                Media & Reels
+              </Link>
+              <Link
+                href="/about"
+                className={`text-sm font-medium transition-colors hover:text-[var(--color-brand-orange)] ${
+                  isScrolled ? "text-gray-200" : "text-white drop-shadow-md"
+                }`}
+              >
+                About
+              </Link>
+              <Link
+                href="/news"
+                className={`text-sm font-medium transition-colors hover:text-[var(--color-brand-orange)] ${
+                  isScrolled ? "text-gray-200" : "text-white drop-shadow-md"
+                }`}
+              >
+                News
+              </Link>
+              <Link
+                href="/faq"
+                className={`text-sm font-medium transition-colors hover:text-[var(--color-brand-orange)] ${
+                  isScrolled ? "text-gray-200" : "text-white drop-shadow-md"
+                }`}
+              >
+                FAQ
+              </Link>
+              <Link
                 href="/contact"
-                className={`font-medium transition-colors hover:text-[var(--color-brand-orange)] ${
+                className={`text-sm font-medium transition-colors hover:text-[var(--color-brand-orange)] ${
                   isScrolled ? "text-gray-200" : "text-white drop-shadow-md"
                 }`}
               >
@@ -109,11 +139,11 @@ export default function Navbar() {
               </Link>
               <Link
                 href="/contact"
-                className="bg-brand-gradient px-5 py-2 rounded-full font-medium shadow-md flex items-center gap-2"
+                className="bg-brand-gradient text-white text-xs font-bold px-5 py-2.5 rounded-full shadow-md flex items-center gap-2 hover:shadow-orange-500/25 transition-all"
               >
                 <span>Plan Your Trip</span>
                 <svg
-                  className="w-4 h-4 rotate-90 group-hover:translate-x-1 transition-transform"
+                  className="w-3.5 h-3.5 rotate-90 group-hover:translate-x-1 transition-transform"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -124,7 +154,7 @@ export default function Navbar() {
             </nav>
 
             {/* Unique Luxury Mobile Menu Toggle */}
-            <div className="md:hidden flex items-center">
+            <div className="lg:hidden flex items-center">
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
                 className="group flex items-center gap-2.5 p-2 focus:outline-none transition-all text-white"

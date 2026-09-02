@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { Phone, Mail, MapPin, Globe, ArrowRight } from "lucide-react";
 
 export default function Footer() {
@@ -12,13 +13,13 @@ export default function Footer() {
             <h2 className="text-2xl font-extrabold text-white">Ready to explore Sri Lanka?</h2>
             <p className="text-gray-400 text-sm mt-1">Let us craft your perfect journey from start to finish.</p>
           </div>
-          <a
-            href="/#contact"
+          <Link
+            href="/contact"
             className="flex-shrink-0 flex items-center gap-2 bg-brand-gradient text-white font-bold px-8 py-4 rounded-full shadow-lg text-base group"
           >
             Plan Your Trip
             <svg className="w-5 h-5 rotate-90 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -54,24 +55,25 @@ export default function Footer() {
           </div>
 
           {/* ── Column 2: Quick Links ── */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3">
             <h3 className="text-white font-bold text-sm uppercase tracking-widest mb-2">Explore</h3>
             {[
               { label: "Home", href: "/" },
-              { label: "Travel Packages", href: "/packages" },
-              { label: "Experiences", href: "/#experiences" },
-              { label: "About Us", href: "/#about" },
-              { label: "News & Events", href: "/#news" },
-              { label: "Contact", href: "/#contact" },
+              { label: "Tour Packages", href: "/packages" },
+              { label: "Tour Media & Reels", href: "/gallery" },
+              { label: "About Us", href: "/about" },
+              { label: "News & Events", href: "/news" },
+              { label: "Travel FAQs", href: "/faq" },
+              { label: "Contact Us", href: "/contact" },
             ].map((link) => (
-              <a
+              <Link
                 key={link.label}
                 href={link.href}
                 className="text-gray-400 hover:text-[var(--color-brand-orange)] text-sm transition-colors flex items-center gap-2 group"
               >
                 <span className="w-0 group-hover:w-3 h-px bg-[var(--color-brand-orange)] transition-all duration-200 rounded-full" />
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -80,23 +82,19 @@ export default function Footer() {
             <h3 className="text-white font-bold text-sm uppercase tracking-widest mb-2">Get in Touch</h3>
             <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" className="flex items-start gap-3 text-sm text-gray-400 hover:text-white transition-colors group">
               <MapPin className="w-4 h-4 mt-0.5 text-[var(--color-brand-orange)] shrink-0" />
-              <span>Katukurunde Gedara, Kathaluwa,<br />Ahangama, Sri Lanka</span>
+              <span>Katukurunde Gedara, Kathaluwa,<br />Ahangama, Galle, Sri Lanka</span>
             </a>
             <a href="tel:+94776175241" className="flex items-center gap-3 text-sm text-gray-400 hover:text-white transition-colors">
               <Phone className="w-4 h-4 text-[var(--color-brand-orange)] shrink-0" />
               +94 77 617 5241
             </a>
-            <a href="tel:+94779230490" className="flex items-center gap-3 text-sm text-gray-400 hover:text-white transition-colors">
-              <Phone className="w-4 h-4 text-[var(--color-brand-orange)] shrink-0" />
-              +94 77 923 0490
-            </a>
-            <a href="mailto:salani@walkwithmandu.com" className="flex items-center gap-3 text-sm text-gray-400 hover:text-white transition-colors">
+            <a href="mailto:walkwithmandu@gmail.com" className="flex items-center gap-3 text-sm text-gray-400 hover:text-white transition-colors">
               <Mail className="w-4 h-4 text-[var(--color-brand-orange)] shrink-0" />
-              salani@walkwithmandu.com
+              walkwithmandu@gmail.com
             </a>
-            <a href="https://walkwithmandu.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-gray-400 hover:text-white transition-colors">
-              <Globe className="w-4 h-4 text-[var(--color-brand-orange)] shrink-0" />
-              walkwithmandu.com
+            <a href="https://wa.me/94776175241" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-gray-400 hover:text-emerald-400 transition-colors">
+              <Globe className="w-4 h-4 text-emerald-400 shrink-0" />
+              WhatsApp Direct Chat
             </a>
           </div>
 

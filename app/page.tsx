@@ -22,6 +22,7 @@ export default function Home() {
                 <Experiences />
                 <Reviews />
                 <About />
+                <NewsEvents />
                 <ModernCTA />
                 <FAQ />
             </main>
