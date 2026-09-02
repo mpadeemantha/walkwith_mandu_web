@@ -55,8 +55,8 @@ export default function Experiences() {
         <ScrollReveal>
           <div className="text-center mb-16">
             <h2 className="text-sm font-bold text-[var(--color-brand-orange)] tracking-widest uppercase mb-2">What We Offer</h2>
-            <h3 className="text-3xl md:text-5xl font-bold text-gray-900">Authentic <span className="text-[var(--color-brand-green)]">Experiences</span></h3>
-            <div className="w-24 h-1 bg-gradient-to-r from-[var(--color-brand-orange)] to-[var(--color-brand-green)] mx-auto mt-6 rounded-full"></div>
+            <h3 className="text-3xl md:text-5xl font-bold text-gray-900">Authentic <span className="text-[var(--color-brand-orange)]">Experiences</span></h3>
+
           </div>
         </ScrollReveal>
 

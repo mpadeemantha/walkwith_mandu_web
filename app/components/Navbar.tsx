@@ -44,7 +44,7 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8 items-center">
-            <Link href="#about" className={`font-medium transition-colors hover:text-[var(--color-brand-orange)] ${isScrolled ? "text-gray-700" : "text-white drop-shadow-md"
+            <Link href="/#about" className={`font-medium transition-colors hover:text-[var(--color-brand-orange)] ${isScrolled ? "text-gray-700" : "text-white drop-shadow-md"
               }`}>
               About
             </Link>
@@ -52,7 +52,11 @@ export default function Navbar() {
               }`}>
               Packages
             </Link>
-            <Link href="#contact" className="bg-[var(--color-brand-orange)] text-white px-5 py-2 rounded-full font-medium hover:bg-orange-700 transition-colors shadow-md">
+            <Link href="/contact" className={`font-medium transition-colors hover:text-[var(--color-brand-orange)] ${isScrolled ? "text-gray-700" : "text-white drop-shadow-md"
+              }`}>
+              Contact
+            </Link>
+            <Link href="/contact" className="bg-[var(--color-brand-orange)] text-white px-5 py-2 rounded-full font-medium hover:bg-orange-700 transition-colors shadow-md">
               Book Now
             </Link>
           </nav>
@@ -81,13 +85,16 @@ export default function Navbar() {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white border-b border-gray-100 ">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <Link href="#about" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-[var(--color-brand-orange)] hover:bg-orange-50 :bg-gray-800 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+            <Link href="/#about" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-[var(--color-brand-orange)] hover:bg-orange-50 :bg-gray-800 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
               About
             </Link>
             <Link href="/packages" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-[var(--color-brand-orange)] hover:bg-orange-50 :bg-gray-800 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
               Packages
             </Link>
-            <Link href="#contact" className="block px-3 py-2 text-base font-medium text-[var(--color-brand-orange)] hover:bg-orange-50 :bg-gray-800 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+            <Link href="/contact" className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-[var(--color-brand-orange)] hover:bg-orange-50 :bg-gray-800 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
+              Contact
+            </Link>
+            <Link href="/contact" className="block px-3 py-2 text-base font-medium text-[var(--color-brand-orange)] hover:bg-orange-50 :bg-gray-800 rounded-md" onClick={() => setIsMobileMenuOpen(false)}>
               Book Now
             </Link>
           </div>

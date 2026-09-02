@@ -8,21 +8,29 @@ const slides = [
     image: "/bbg2.png",
     heading: "Discover the Magic",
     highlight: "of Sri Lanka",
-    subheading: "Tailor-made, unforgettable travel experiences for the adventurous soul. Let Walk With Mandu be your local guide to paradise."
+    subheading: "Explore Sri Lanka with Walk With Mandu, your local travel partner for unforgettable Sri Lanka tours and tailor-made holidays."
   },
   {
     image: "/bbg3.png",
     heading: "Explore Ancient",
     highlight: "Wonders",
-    subheading: "From majestic temples to ancient rock fortresses, step back in time and experience our rich cultural heritage."
+    subheading: "Discover ancient heritage sites, tropical beaches, wildlife, lush mountains, and authentic local experiences."
   },
   {
-    image: "/ctabg.png",
+    image: "https://www.onthegotours.com/repository/Untouched-tropical-beach--Sri-Lanka-Tours--On-The-Go-Tours-347511495547421.jpg",
     heading: "Relax on Pristine",
     highlight: "Beaches",
     subheading: "Sun, sea, and surf. Unwind on the golden shores of the South Coast and create memories that last a lifetime."
   }
 ];
+
+const heroContent = {
+  badgeText: "Sri Lanka Tourist Board Approved Tour Company",
+  primaryButtonText: "Start Planning",
+  primaryButtonLink: "#contact",
+  secondaryButtonText: "View Packages",
+  secondaryButtonLink: "/packages"
+};
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -71,7 +79,7 @@ export default function Hero() {
                   <svg className="w-4 h-4 text-[var(--color-brand-orange)]" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
-                  Sri Lanka Tourist Board Approved Tour Company
+                  {heroContent.badgeText}
                 </div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4 tracking-tight drop-shadow-lg">
                   {slide.heading} <br />
@@ -84,12 +92,12 @@ export default function Hero() {
 
               {/* Right Side: Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto shrink-0">
-                <a href="#contact" className="bg-[var(--color-brand-orange)] text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-orange-700 transition-colors shadow-xl shadow-orange-900/50 text-center flex items-center justify-center gap-2 group">
-                  Start Planning
+                <a href={heroContent.primaryButtonLink} className="bg-[var(--color-brand-orange)] text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-orange-700 transition-colors shadow-xl shadow-orange-900/50 text-center flex items-center justify-center gap-2 group">
+                  {heroContent.primaryButtonText}
                   <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                 </a>
-                <a href="/packages" className="bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white/20 transition-colors text-center shadow-lg">
-                  View Packages
+                <a href={heroContent.secondaryButtonLink} className="bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white/20 transition-colors text-center shadow-lg">
+                  {heroContent.secondaryButtonText}
                 </a>
               </div>
             </div>

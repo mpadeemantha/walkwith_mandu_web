@@ -16,7 +16,7 @@ export default function Gallery() {
   return (
     <section className="py-24 bg-gray-50 border-t border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         <ScrollReveal animation="reveal-up" className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Through Our <span className="text-[var(--color-brand-green)]">Lens</span>
@@ -29,7 +29,7 @@ export default function Gallery() {
         <ScrollReveal animation="reveal-up">
           {/* Using a simple column setup for a masonry-like feel without heavy external libraries */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            
+
             {/* Column 1 */}
             <div className="flex flex-col gap-4">
               <div className="overflow-hidden rounded-xl h-48 md:h-64 group cursor-pointer shadow-sm hover:shadow-md transition-shadow">
